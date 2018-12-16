@@ -33,9 +33,5 @@ return [
     // 标签库标签结束标记
     'taglib_end'   => '}',
 
-    //开启全局模板布局
-    'layout_on' => true,
-
-    //全局模板不文件名
-    'layout_name' => 'layout',
+   
 ];
