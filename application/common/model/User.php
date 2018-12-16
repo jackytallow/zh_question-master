@@ -24,5 +24,5 @@ class User extends Model
      * 如果已经指定了数据库前缀，这里就不需要指定
      */
    //protected $table = 'zh_user';
-   
+
 }
