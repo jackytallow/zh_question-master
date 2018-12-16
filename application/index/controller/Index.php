@@ -14,7 +14,7 @@ class Index extends Base
     //直接生成首页
     public function index(){
 
-        return $this->view->fetch();
+        return $this->fetch('index',['name'=>'Jacky']);
     }
 
 }

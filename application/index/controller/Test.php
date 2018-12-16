@@ -24,7 +24,7 @@ class Test extends Base
             'name'=>'jackytallow',
             'email'=> '3434481891@qq.com',
             'mobile'=>'15817351625',
-            'password'=>'adb123cd',
+            'password'=>'abc123cd',
         ];
 
       $rule = 'app\common\validate\User';

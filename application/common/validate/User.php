@@ -32,7 +32,7 @@ class User extends Validate
         ],
         'mobile|手机号'=>[
             'require'=>'require',
-            'email'=>'email',
+            'mobile'=>'mobile',
             'unique'=>'zh_user',//该字段必须在user表中是唯一的
             'number'=>'number',
         ],
