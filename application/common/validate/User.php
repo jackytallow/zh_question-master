@@ -19,7 +19,7 @@ class User extends Validate
 {
 
     protected $rule =[
-      
+
         'name|姓名'=>[
             'require'=>'require',
             'length'=>'5,20',
