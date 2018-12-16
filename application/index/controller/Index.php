@@ -2,8 +2,11 @@
 namespace app\index\controller;
 
 
-use think\Controller;
-class Index extends Controller
+
+use app\common\controller\Base;
+//导入公共控制器
+
+class Index extends Base
 {
 
 
