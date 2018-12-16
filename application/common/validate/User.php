@@ -36,7 +36,7 @@ class User extends Validate
             'unique'=>'zh_user',//该字段必须在user表中是唯一的
             'number'=>'number',
         ],
-        'name|姓名'=>[
+        'password|密码'=>[
             'require'=>'require',
             'length'=>'6,20',
             'alphaNum'=>'alphaNum',//仅允许字母和数字
