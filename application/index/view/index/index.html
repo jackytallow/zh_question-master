@@ -1,103 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{$title|default='页面标题'}</title>
-    <!--<link rel="stylesheet" href="/static/css/bootstrap.css">-->
-    <!--<script src="/static/js/jquery-3.3.1.min.js"></script>-->
-    <!--<script src="/static/js/bootstrap.js"></script>-->
+{include file="public:header"/}
 
+    {include file="public:nav"/}
 
-    {load href="/static/css/bootstrap.css"/}
-    {load href="/static/js/jquery-3.3.1.min.js"/}
-    {load href="/static/js/bootstrap.js"/}
-</head>
-<body>
-
-<div class="container">
     <div class="row">
-        <div class="col-md-12">
-
-            <!--导航-->
-            <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">{$siteName|default="社区问答"}</a>
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">PHP</a></li>
-                            <li><a href="#">JavaScript</a></li>
-
-                        </ul>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <form class="navbar-form navbar-left">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="请输入关键字">
-                                </div>
-                                <button type="submit" class="btn btn-default">搜索</button>
-                            </form>
-
-                            <li><a href="#">admin</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">操作 <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">发起问答</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">退出登录</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-
-
-           </div>
-
         <div class="col-md-8">
             <div class="page-header">
                 <h2>全部问答</h2>
             </div>
-
         </div>
 
-        <div class="col-md-4">
-            <div class="page-header">
-                <h2>热门排行</h2>
-            </div>
-            <!--列表组-->
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span class="badge">14</span>
-                    这是最新的问答
-                </li>
-            </ul>
+      {include file="public:right"/}
 
-            <div class="list-group">
-                <a href="#" class="list-group-item active">
-                   这是最新的问答
-                </a>
-                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item">Vestibulum at eros</a>
-            </div>
-        </div>
-
-    </div>
-
-    </div>
-
-</div>
-</body>
-</html>
+        {include file="public:footer"/}
