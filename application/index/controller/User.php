@@ -14,10 +14,13 @@ use app\common\controller\Base;
 class User extends Base
 {
 
+    //注册
+
     public function register()
     {
 //        echo '你好';
         $this->assign('title','用户注册');
+     //渲染注册页面
         return $this->fetch();
 
     }
