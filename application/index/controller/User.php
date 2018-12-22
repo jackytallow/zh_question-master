@@ -10,6 +10,8 @@ namespace app\index\controller;
 
 
 use app\common\controller\Base;
+use think\facade\Request;
+use think\common\model\User as UserModel;
 
 class User extends Base
 {
@@ -23,5 +25,26 @@ class User extends Base
      //渲染注册页面
         return $this->fetch();
 
+    }
+
+    //处理用户提交的注册信息
+    public function insert()
+    {
+        if (Request::isAjax()){
+           //使用模型来创建数据
+
+            //获取用户通过表单提交的数据
+         $data  = Request::except('password_confirm','post');
+
+         //添加操作
+           if( UserModel::create($data)){
+               return ['status'=> 1, 'message'=>'恭喜,注册成功'];
+           }
+           else{
+               return ['status'=> 0, 'message'=>'注册失败,请检查'];
+           }
+        } else {
+            $this->error("请求类型错误",'register');
+        }
     }
 }
