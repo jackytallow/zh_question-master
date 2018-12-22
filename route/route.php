@@ -9,10 +9,6 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-/**
- * 路由配置，自定义配置路由
- */
-
 Route::get('think', function () {
     return 'hello,ThinkPHP5!';
 });
