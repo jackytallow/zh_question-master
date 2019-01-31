@@ -31,20 +31,28 @@ class User extends Base
     public function insert()
     {
         if (Request::isAjax()){
-           //使用模型来创建数据
+           //验证数据
+          $data = Request::post();//要验证的数据
+            $rule = 'app\common\validate\User';//自定义的验证规则
 
-            //获取用户通过表单提交的数据
-         $data  = Request::except('password_confirm','post');
+            //开始验证
+            $res = $this->validate($data,$rule);
 
-         //添加操作
-           if( UserModel::create($data)){
-               return ['status'=> 1, 'message'=>'恭喜,注册成功'];
-           }
-           else{
-               return ['status'=> 0, 'message'=>'注册失败,请检查'];
-           }
+            if (true != $res) { //false
+                return ['status' => -1, 'message' => $res];
+            }else{//true
+                //添加操作
+                if( UserModel::create($data)){
+                    return ['status'=> 1, 'message'=>'恭喜,注册成功'];
+                }
+                else{
+                    return ['status'=> 0, 'message'=>'注册失败,请检查'];
+                }
+            }
+
         } else {
             $this->error("请求类型错误",'register');
         }
     }
+
 }

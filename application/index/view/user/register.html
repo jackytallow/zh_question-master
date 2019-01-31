@@ -61,11 +61,21 @@
            //    ajax提交
                $.ajax({
                    type:'post',
-                   url: "{:url('insert')}",
+                   url: "{:url('index/user/insert')}",
                    data:$('#login').serialize(),
                    dataType:'json',
                    success:function(data){
-                       alert('成功了');
+                     //  alert('成功了');
+                       switch (data.status) {
+
+                           case 1:
+                               alert(data.message);
+                               break;
+                           case 0:
+                           case -1:
+                               alert(data.message);
+                               window.location.back();
+                       }
                    }
                })
            })
