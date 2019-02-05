@@ -10,9 +10,9 @@ namespace app\index\controller;
 
 
 use app\common\controller\Base;
-use think\facade\Request;
+use think\facade\Request; //导入请求静态代理
 use app\common\model\User as UserModel;
-use think\Session;
+use think\facade\Session; //导入SESSION静态代理
 
 class User extends Base
 {
@@ -126,5 +126,15 @@ class User extends Base
             }else{
                 $this->error('请求类型错误','login');//跳转到登录页面
             }
+    }
+
+
+    //退出登录
+    public function logout()
+    {
+        Session::delete('user_id');
+        Session::delete('user_name');
+        //Session:clear
+        $this->success('退出成功','index/index');
     }
 }
