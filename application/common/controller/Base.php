@@ -9,6 +9,8 @@
 namespace app\common\controller;
 
 
+use app\admin\controller\Site;
+use app\common\model\ArtCate;
 use think\Controller;
 use think\facade\Session;
 
@@ -52,10 +54,37 @@ class Base extends Controller
     }
 
 
+    //显示分类导航
+    protected function shawNav()
+    {
+        //1.查询分类表所得到所有的分类信息，该方法要在初始化方法中调用
+        $cateList = ArtCate::all(function($query){
+            $query->where('status',1)->order('sort','asc');
+
+        });
+
+        //2.将分类信息赋值给模板啊：nav.html调用
+        $this->view->assign('cateList',$cateList);
+    }
+
     //检测站点是否已关闭：在公共控制器初始化方法中调用
     public function is_open()
     {
         //1.获取但当前站点的状态
+        $isOpen = Site::where('status', 1)->value('is_open');
 
+        //2.如果站点是关闭状态,那我们只允许关闭前台模块,后台模块必须仍然可以访问
+        if ($isOpen == 0 && Request::module() == 'index') {
+            //或者写上:此域名出售
+            $info = <<<'INFO'
+            <body style="background-color:#333">
+            <h1 style="color:#eee;text-align:center;margin:200px">站点维护中...</h1>
+            </body>
+INFO;
+            exit($info);
+        }
     }
+
+
+
 }
