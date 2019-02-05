@@ -86,5 +86,27 @@ INFO;
     }
 
 
+    //检测注册是否关闭：放在前台注册方法中调用
+    public function is_reg()
+    {
+
+        //1.获取当前站点的注册状态
+        $isReg = Site::where('status',1)->value('is_reg');
+
+        //3.如果注册是否关闭：放在前台注册方法中调用
+        if ($isReg == 0){
+
+            $this->error('注册已关闭','index/index');
+        }
+    }
+
+
+    //根据阅读量PV排名来获取内容,放在前台的右侧显示:在初始化方法中进行调用
+    public function getHotArt()
+    {
+        $hotArtList = Article::where('status',1)->order('pv','desc')->limit(12)->select();
+
+        $this->view->assign('hotArtList', $hotArtList);
+    }
 
 }
