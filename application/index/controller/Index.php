@@ -2,6 +2,7 @@
 namespace app\index\controller;
 
 use app\common\controller\Base;
+use app\common\model\Article;
 use think\Db;
 use think\facade\Request;
 
@@ -54,6 +55,22 @@ class Index extends Base
         return $this->fetch('index',['title'=>'社区问答']) ;
     }
 
+
+    //详情页
+    public function detail()
+    {
+        $artId = Request::param('id');
+        $art = Article::get(function ($query) use ($artId){
+            $query->where('id','=',$artId)->setInc('pv');
+        });
+        if (!is_null($art)){
+
+            $this->view->assign('art',$art);
+        }
+
+        $this->view->assign('title','详情页');
+        return $this->view->fetch('detail');
+    }
 
     //用户收藏
     public function fav()
