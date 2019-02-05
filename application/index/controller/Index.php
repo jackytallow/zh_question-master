@@ -2,6 +2,7 @@
 namespace app\index\controller;
 
 use app\common\controller\Base;
+use think\Db;
 use think\facade\Request;
 
 class Index extends Base
@@ -51,5 +52,42 @@ class Index extends Base
 
         //渲染首页模板
         return $this->fetch('index',['title'=>'社区问答']) ;
+    }
+
+
+    //用户收藏
+    public function fav()
+    {
+
+        if (!Request::isAjax()){
+            return ['status'=>-1, 'message'=> '请求类型错误'];
+        }
+
+        $data = Request::param();
+        //1.先查询fav收藏表中是否有这条收藏记录，如果有，表示已收藏过了
+        //halt($data);
+        //
+        if (empty($data['session_id'])){
+            return ['status'=>-2,'message'=>'请登录后再收藏'];
+        }
+        $map[] = ['user_id','=',$data['user_id']];
+        $map[] = ['article_id','=',$data['article_id']];
+
+        $fav = Db::table('zh_user_fav')->where($map)->find();
+
+        if (is_null($fav)){
+
+            Db::table('zh_user_fav')
+                ->data([
+                    'user_id'=>$data['user_id'],
+                    'article_id'=>$data['article_id']
+                ])->insert();
+            return ['status'=>1,'message'=>'收藏成功'];
+
+        }else{
+
+            Db::table('zh_user_fav')->where($map)->delete();
+           return ['status'=>0,'message'=>'取消收藏'];
+        }
     }
 }
