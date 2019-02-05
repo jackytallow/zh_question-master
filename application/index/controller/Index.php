@@ -2,6 +2,7 @@
 namespace app\index\controller;
 
 use app\common\controller\Base;
+use app\common\model\ArtCate;
 use app\common\model\Article;
 use think\Db;
 use think\facade\Request;
@@ -53,6 +54,77 @@ class Index extends Base
 
         //渲染首页模板
         return $this->fetch('index',['title'=>'社区问答']) ;
+    }
+
+    //添加文章界面
+    public function insert()
+    {
+        //1.必须登录才能允许发布
+        $this->isLogin();
+
+        //2.设置页面标题
+        $this->view->assign('title','发布文章');
+
+        //3.获取栏目信息
+        $cateList = ArtCate::all();
+        //halt($cateList);
+        if(count($cateList)>0){
+            $this->assign('cateList',$cateList);
+        } else{
+            $this->error('请先添加栏目','index/index');
+        }
+
+        //3.渲染文章发布界面
+        return $this->view->fetch('insert',['title'=>'发布文章']);
+    }
+
+
+
+
+    //保存文章
+    public function save()
+    {
+
+        if (Request::post()) {
+
+
+            //halt($data);
+            //2.对前端表单提交的数据进行验证
+            $data = Request::post();
+            //halt($data)
+            $res = $this->validate($data, 'app\common\validate\Article');
+            if (true !== $res) {
+                //验证不能过
+                echo '<script>alert("' . $res . '")</script>';
+
+            } else {
+                //验证通过
+                //获取上传的标题图片信息
+                $file = Request::file('title_img');
+                //文件信息验证与上传都服务器指定目录
+                $info = $file->validate([
+                    'size' => 500000000, //文件大小
+                    'ext' => 'jpeg,jpg,png,gif' //文件扩展名
+
+                ])->move('uploads/');
+                if ($info) {
+                    $data['title_img'] = $info->getSaveName();
+                } else {
+                    $this->error($file->getError(), 'index/index/insert');
+                }
+                //将数据写到文档表中
+                if (Article::create($data)) {
+                    $this->success('文章发布成功', 'index/index');
+                } else {
+                    $this->error('文章保存失败');
+                }
+
+
+            }
+
+        }  else{
+            $this->error('请求类型错误');
+        }
     }
 
 
