@@ -31,7 +31,8 @@ class Base extends Controller
     protected function initialize()
     {
 
-
+        //检测站点是否已关闭
+        $this->is_open();
     }
 
     //检查是否已登录：防止重复登录：放在登录验证方法中调用
@@ -48,5 +49,13 @@ class Base extends Controller
         if (!Session::has('user_id')){
             $this->error('客官，您是不是忘记登录啦~~','user/login');
         }
+    }
+
+
+    //检测站点是否已关闭：在公共控制器初始化方法中调用
+    public function is_open()
+    {
+        //1.获取但当前站点的状态
+
     }
 }
