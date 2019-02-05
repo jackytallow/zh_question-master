@@ -20,4 +20,5 @@ class Article extends Validate
         'user_id|作者' => 'require',
         'cate_id|栏目名称' => 'require'
     ];
+
 }

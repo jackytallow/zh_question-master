@@ -41,7 +41,7 @@ class Index extends Base
             //如果当前没有分类ID,就是首页啦
             $this->view->assign('cateName','全部文章');
             $artList = Db::table('zh_article')
-                // ->where('status',1)
+                // ->where('status',1)s
                 ->where($map)
                 ->order('create_time','desc')->paginate(4);
         }
