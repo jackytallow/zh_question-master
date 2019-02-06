@@ -25,8 +25,23 @@
         <td>{$art.pv}</td>
         <td>{$art.create_time}</td>
 
-        
+        <td><a href="{:url('article/artEdit',['id'=>$art.id])}">编辑</a></td>
+        <td><a href="" onclick="dele({$art.id});return false;">删除</a></td>
     </tr>
     {/volist}
 
 </table>
+
+
+<!-- 显示分页条 -->
+<div class="text-center">{$artList|raw}</div>
+
+
+<script>
+    function dele(id)
+    {
+        if(confirm('您真的要删除吗?') == true){
+            window.location.href = "{:url('article/doDelete')}"+"?id="+id;
+        }
+    }
+</script>
