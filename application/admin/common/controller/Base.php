@@ -1,27 +1,18 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Jacky
- * Date: 2019/2/5
- * Time: 10:05
- */
-
+<?php 
 namespace app\admin\common\controller;
-
+use think\Controller;
+use think\facade\Request;
+use think\facade\Session;
+use app\admin\common\model\Site;
 
 //后台公共控制器
-use think\Controller;
-use think\facade\Session;
-
-class Base extends Controller
+class Base extends Controller 
 {
-
-    //初始化
+	// 初始化
     protected function initialize()
     {
-
+        
     }
-
 
     /**
      * 检测用启是否登录
@@ -30,8 +21,10 @@ class Base extends Controller
      */
     protected function isLogin()
     {
-        if (!Session::has('user_id')){
+        if (!Session::has('user_id')) {
             $this->error('请先登录','admin/user/login');
         }
     }
+
+   
 }
