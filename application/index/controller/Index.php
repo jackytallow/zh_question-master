@@ -74,8 +74,11 @@ class Index extends Base
             $this->error('请先添加栏目','index/index');
         }
 
+
         //3.渲染文章发布界面
         return $this->view->fetch('insert',['title'=>'发布文章']);
+
+
     }
 
 
@@ -117,6 +120,7 @@ class Index extends Base
                     $this->success('文章发布成功', 'index/index');
                 } else {
                     $this->error('文章保存失败');
+
                 }
 
 
