@@ -30,7 +30,19 @@
 
         <td>{$cate.create_time}</td>
 
-        <td></td>
+        <td><a href="{:url('cate/cateEdit',['id'=>$cate.id])}">编辑</a></td>
+        <td><a href="" onclick="dele();return false;">删除</a></td>
     </tr>
     {/volist}
 </table>
+    <!--分类需要添加操作-->
+    <a class="btn btn-info" href="{:url('cate/cateAdd')}" role="button">添加分类</a>
+
+<script>
+    function dele() {
+        if (confirm('您真的要删除吗？') == true){
+            window.location.href = "{:url('cate/doDelete',['id'=>$cate.id])}"
+        }
+    }
+
+</script>

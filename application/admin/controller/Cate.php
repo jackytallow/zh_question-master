@@ -10,6 +10,7 @@ namespace app\admin\controller;
 
 use app\admin\common\model\Cate as CateModel;
 use app\admin\common\controller\Base;
+use think\facade\Request;
 
 class Cate extends Base
 {
@@ -42,5 +43,69 @@ class Cate extends Base
 
         //4.渲染出分类列表
         return $this->view->fetch('catelist');
+    }
+
+    //执行编辑保存操作
+    public function doEdit()
+    {
+
+        //1.获取用户提交的更新信息
+        $data = Request::param();
+
+        $id = $data['id'];//取出更新主键
+
+        //2.删除主键字段，封装出要更新的字段数组
+        unset($data['id']);
+
+
+        //3.执行更新操作
+        if (CateModel::where('id',$id)->data($data)->update()){
+            return $this->success('更新成功','cateList');
+        }
+
+        //4. 更新失败提示
+        $this->error('没有更新或更新失败');
+    }
+
+
+    //执行分类删除操作
+    public function doDelete()
+    {
+        //1.获取要删除的数据主键
+        $id = Request::param('id');
+
+        //2.执行删除操作
+        if (CateModel::where('id',$id)->delete()){
+            return $this->success('删除成功','cateList');
+        }
+
+        //3.删除失败提示
+        $this->error('删除失败');
+    }
+
+
+    //渲染添加界面
+    public function cateAdd()
+    {
+        //1.设置编辑界面的模板变量
+        $this->view->assign('title','添加分类');
+
+        //2.渲染添加界面
+        return $this->fetch('cateadd');
+    }
+
+    //执行添加操作
+    public function doAdd()
+    {
+        //1.获取要添加的数据
+        $data = Request::param();
+
+        //2.执行添加操作并判断是否成功
+        if(CateModel::create($data)){
+            $this->success('添加成功','catelist');
+        }
+
+        //3:失败
+        $this->error('添加失败','catelist');
     }
 }
