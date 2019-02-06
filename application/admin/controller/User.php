@@ -123,7 +123,20 @@ class User extends Base
         //3.更新失败提示
         $this->error('没有更新或更新失败');
     }
-    
+
+    //执行用户的删除操作
+    public function doDelete()
+    {
+        //1.获取要删除的数据主键
+        $id = Request::param('id');
+
+        //2.执行删除操作
+        if (UserModel::where('id',$id)->delete()){
+            return $this->success('删除成功','userList');
+        }
+
+        //3.
+    }
 
 
 }
